@@ -2,7 +2,21 @@
 
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  modules: ['@nuxtjs/tailwindcss', '@element-plus/nuxt'],
+  modules: [
+    '@nuxtjs/tailwindcss',
+    '@element-plus/nuxt',
+    [
+      '@pinia/nuxt',
+      {
+        autoImports: [
+          // 自动引入 `defineStore()`
+          'defineStore',
+          // 自动引入 `defineStore()` 并重命名为 `definePiniaStore()`
+          ['defineStore', 'definePiniaStore'],
+        ],
+      },
+    ],
+  ],
 
   // routeRules: {
   //   '/dev-api/**': {
