@@ -33,7 +33,8 @@ const HTTP_STATUS_CODES_MAP: HTTP_STATUS_CODES_TYPE = {
 
 function sendRequest<T>(url: ReqType, options?: OptionType): Promise<IResult<T>> {
   return $fetch<IResult<T>>(url, {
-    // baseURL: process.env.NUXT_BASE_URL,
+    // baseURL: useRuntimeConfig().public.baseURL
+
     onRequestError({ error }) {
       console.warn('[onRequestError]' + '\n' + error);
     },
@@ -44,7 +45,7 @@ function sendRequest<T>(url: ReqType, options?: OptionType): Promise<IResult<T>>
       }
 
       if (response._data?.code === ResultCode.Success) {
-        return Promise.resolve(response._data.data);
+        return Promise.resolve(response._data?.data);
       }
 
       const errorMsg = response._data?.message || '获取数据失败';
