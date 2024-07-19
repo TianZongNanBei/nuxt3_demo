@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  pm2-container:
+    build:
+      # 指定构建上下文为当前目录
+      context: ./
+      # 指定 Dockerfile文件
+      dockerfile: pm2_Dockerfile
+    restart: always
+    ports:
+      - 3000:3000
+    volumes:
+      # 将主机的node18pm2_volume卷挂载到容器的/app目录
+      - node18pm2_volume:/app
+    networks:
+      # 将容器连接到名为node18pm2_network的网络
+      - node18pm2_network
+ 
+networks:
+  # 定义名为node18pm2_network的网络
+  node18pm2_network:
+    external: true
+volumes:
+  # 定义名为node18pm2_volume的卷
+  node18pm2_volume:
+    # 使用外部卷
+    external: true
+
